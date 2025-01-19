@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Followers</title>
+    <link rel="stylesheet" href="/followers.css">
+</head>
+<body>
+    <div class="theme-toggle">
+        <button id="themeButton">
+            <img id="themeIcon" src="https://img.icons8.com/ios-filled/50/000000/sun--v1.png" alt="Theme Icon">
+        </button>
+    </div>
+
+    <div class="container">
+        <h1>Send Followers</h1>
+        <p>You can send up to 120 followers per day.</p>
+        <form id="followersForm">
+            <input id="followersCount" type="number" placeholder="Number of Followers" max="120" required />
+            <button type="submit">Send Followers</button>
+        </form>
+        <p id="statusMessage"></p>
+        <button id="logout" onclick="handleLogout()">Logout</button>
+    </div>
+
+    <script>
+        // Handle Theme Toggle
+        const themeButton = document.getElementById("themeButton");
+        const themeIcon = document.getElementById("themeIcon");
+
+        themeButton.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            if (document.body.classList.contains("dark-mode")) {
+                themeIcon.src = "https://img.icons8.com/ios-filled/50/ffffff/moon-symbol.png";
+            } else {
+                themeIcon.src = "https://img.icons8.com/ios-filled/50/000000/sun--v1.png";
+            }
+        });
+
+        // Track submission state
+        let isSubmissionInProgress = false;
+
+        document.getElementById("followersForm").addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const followersCount = parseInt(document.getElementById("followersCount").value, 10);
+            const statusMessage = document.getElementById("statusMessage");
+            const sendButton = event.target.querySelector("button");
+
+            if (followersCount > 120) {
+                statusMessage.textContent = "You can only send up to 120 followers per day.";
+                return;
+            }
+
+            if (followersCount <= 0 || isNaN(followersCount)) {
+                statusMessage.textContent = "Please enter a valid number of followers.";
+                return;
+            }
+
+            if (isSubmissionInProgress) {
+                const confirmResubmit = confirm(
+                    "Followers are already being sent. Do you want to start over?"
+                );
+                if (!confirmResubmit) return;
+                // Reset for new submission
+                clearInterval(sendFollower);
+                statusMessage.textContent = "";
+            }
+
+            // Disable the button to prevent multiple clicks
+            sendButton.disabled = true;
+            statusMessage.textContent = `Preparing to send ${followersCount} followers...`;
+
+            isSubmissionInProgress = true; // Mark submission as in progress
+            let sentCount = 0;
+
+            const sendFollower = setInterval(() => {
+                sentCount++;
+                statusMessage.textContent = `Sent ${sentCount} out of ${followersCount} followers...`;
+
+                if (sentCount === followersCount) {
+                    clearInterval(sendFollower); // Stop the interval once all followers are "sent"
+                    statusMessage.textContent = `Successfully sent ${followersCount} followers!`;
+                    sendButton.disabled = false; // Re-enable the button
+                    isSubmissionInProgress = false; // Reset submission state
+                }
+            }, 10000); // 10 seconds per follower
+        });
+
+        // Handle Logout
+        function handleLogout() {
+            window.location.href = "/logout";
+        }
+
+        // Prompt before leaving the page
+        window.addEventListener("beforeunload", (event) => {
+            if (isSubmissionInProgress) {
+                event.preventDefault();
+                event.returnValue = ""; // Required for modern browsers
+            }
+        });
+    </script>
+</body>
+</html>

@@ -123,7 +123,15 @@ form button {
     height: 35px;
     margin-top: 10px;
     width: 100%;
+    cursor: pointer; /* Add pointer cursor */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Add hover animation */
 }
+
+form button:hover {
+    background-color: #007dc1; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly enlarge the button */
+}
+
 
 /**
  * Separator login form from login with fb

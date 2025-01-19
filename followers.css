@@ -1,0 +1,145 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #181818;
+    color: #f4f4f4;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#themeButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: transform 0.3s ease;
+}
+
+#themeButton:hover {
+    transform: scale(1.1);
+}
+
+#themeIcon {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+/* Container Styling */
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 350px;
+    max-width: 90%;
+    animation: fadeIn 0.5s ease-in-out;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .container {
+    background-color: #333;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header and Text Styling */
+h1 {
+    margin-bottom: 15px;
+}
+
+p {
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* Input Styling */
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+input[type="number"]:focus {
+    border-color: #3897f0;
+    outline: none;
+}
+
+body.dark-mode input[type="number"] {
+    background-color: #444;
+    color: #f4f4f4;
+    border-color: #555;
+}
+
+/* Button Styling */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #3897f0;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #2a78c8;
+    transform: translateY(-2px);
+}
+
+body.dark-mode button {
+    background-color: #555;
+    color: #fff;
+}
+
+#logout {
+    background-color: #ff4d4d;
+    margin-top: 10px;
+}
+
+#logout:hover {
+    background-color: #d93636;
+}
+
+/* Status Message */
+#statusMessage {
+    margin-top: 20px;
+    font-size: 14px;
+}
